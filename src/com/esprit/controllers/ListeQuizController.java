@@ -44,6 +44,16 @@ private Competence selectedCompetence;
     private TableView<Competence> infocompetence;
     @FXML
     private TableColumn<Competence, String> colcompetence;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -75,6 +85,7 @@ private Competence selectedCompetence;
         Parent root = loader.load();
         
        QuestionCompetenceController questionsController = loader.getController();
+       questionsController.setIduser(id);
         
         questionsController.setCompetence(selectedCompetence);
         

@@ -1,0 +1,185 @@
+.star-rating {
+  -fx-spacing: 2px;
+}
+
+.star {
+  -fx-fill: gray;
+  -fx-stroke: black;
+  -fx-cursor: hand;
+}
+
+.star.selected {
+  -fx-fill: yellow;
+}
+
+.fx-beautiful-button {
+  -fx-position: relative;
+  -fx-display: inline-block;
+  -fx-background-color: linear-gradient(to bottom, #1b1c3f, #4a4e91);
+  /* Gradient background */
+  -fx-text-fill: white;
+  /* White text color */
+  -fx-font-family: "Segoe UI", sans-serif;
+  /* Stylish and legible font */
+  -fx-font-weight: bold;
+  -fx-font-size: 16px;
+  /* Large font size */
+  -fx-border: none;
+  /* No border */
+  -fx-border-radius: 30px;
+  /* Rounded corners */
+  -fx-padding: 10px 20px;
+  /* Padding on top and bottom: 10px, Padding on left and right: 20px */
+  -fx-cursor: hand;
+  /* Cursor on hover */
+  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.2) , 5, 0.0 , 0 , 1 );
+  /* Subtle shadow */
+  -fx-animation: button-shimmer 2s infinite;
+  -fx-transition: all 0.3s ease-in-out;
+  /* Smooth transition */
+}
+
+/* Hover animation */
+.fx-beautiful-button:hover {
+  -fx-background-color: linear-gradient(to bottom, #2c2f63, #5b67b7);
+  -fx-animation: button-particles 1s ease-in-out infinite;
+  -fx-translate-y: -2px;
+}
+
+/* Click animation */
+.fx-beautiful-button:pressed {
+  -fx-scale-x: 0.95;
+  -fx-scale-y: 0.95;
+  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.3) , 2, 0.0 , 0 , 1 );
+}
+
+/* Shimmer animation */
+@keyframes button-shimmer {
+  0% {
+    -fx-background-position: left top;
+  }
+
+  100% {
+    -fx-background-position: right bottom;
+  }
+}
+
+/* Particle animation */
+@keyframes button-particles {
+  0% {
+    -fx-background-position: left top;
+  }
+
+  100% {
+    -fx-background-position: right bottom;
+  }
+}
+
+.complaint-textarea {
+  -fx-background-color: #f5f5f5; /* Light background color */
+  -fx-border-color: #e0e0e0; /* Border color */
+  -fx-border-width: 1px; /* Border width */
+  -fx-border-radius: 5px; /* Border corner radius */
+  -fx-padding: 5px; /* Inner spacing */
+  -fx-font-family: Arial, sans-serif; /* Font family */
+  -fx-font-size: 16px; /* Font size */
+  -fx-text-fill: #333333; /* Text color */
+  -fx-wrap-text: true; /* Wrap text within the TextArea */
+}
+
+/* Hover effect */
+.complaint-textarea:hover {
+  -fx-background-color: #ffffff; /* Hover background color */
+}
+
+/* Focus effect */
+.complaint-textarea:focused {
+  -fx-background-color: #ffffff; /* Focus background color */
+  -fx-border-color: #4285f4; /* Focus border color */
+}
+
+.list-view .complaint-textarea {
+  -fx-pref-height: 150px;
+  -fx-pref-width: 552px;
+  -fx-font-size: 14px;
+  -fx-background-color: #f7f9fc;
+  -fx-border-color: #d0d9e2;
+  -fx-border-width: 1px;
+  -fx-border-radius: 5px;
+  -fx-padding: 5px;
+  -fx-text-fill: #333333;
+}
+
+.list-view .complaint-textarea {
+  -fx-control-inner-background: #ffffff;
+  -fx-selection-bar: #002D72;
+}
+
+.list-view .list-cell:selected {
+  -fx-background-color: #002D72;
+  -fx-text-fill: #ffffff;
+}
+
+.list-view {
+  -fx-pref-height: 438px;
+  -fx-pref-width: 426px;
+  -fx-font-size: 14px;
+  -fx-background-color: #f7f9fc;
+  -fx-border-color: #d0d9e2;
+  -fx-border-width: 1px;
+  -fx-border-radius: 5px;
+}
+
+.list-cell {
+  -fx-padding: 10px;
+}
+
+.list-cell:selected {
+  -fx-background-color: #e6eaf2;
+}
+
+.list-view .list-cell .text {
+  -fx-font-weight: bold;
+  -fx-text-fill: #333333;
+}
+
+.list-view .list-cell .description {
+  -fx-text-fill: #666666;
+}
+
+.main-heading {
+  -fx-fill: #333333; /* Set the text color */
+  -fx-font-family: "Segoe UI", sans-serif;
+  -fx-font-size: 28px;
+  -fx-font-weight: bold;
+}
+
+.sub-heading {
+  -fx-fill: #666666; /* Set the text color */
+  -fx-font-family: "Segoe UI", sans-serif;
+  -fx-font-size: 28px;
+}
+
+.main-pane {
+  -fx-background-color: #f5f5f5; /* Set the background color */
+  -fx-background-radius: 10px; /* Set the border radius for rounded corners */
+  -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 10, 0.0 , 0 , 5 ); /* Add a subtle drop shadow effect */
+}
+
+.main-heading {
+  -fx-font-size: 28px;
+  -fx-font-family: "Segoe UI", sans-serif;
+  -fx-fill: #002D72; /* Couleur du texte en bleu nuit */
+  -fx-background-color: linear-gradient(to bottom, #1b1c3f, #4a4e91); /* Couleur de fond en dégradé bleu nuit */
+  -fx-padding: 10px;
+  -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+}
+
+.sub-heading {
+  -fx-font-size: 28px;
+  -fx-font-family: "Segoe UI", sans-serif;
+  -fx-fill: #002D72; /* Couleur du texte en bleu nuit */
+  -fx-background-color: linear-gradient(to bottom, #1b1c3f, #4a4e91); /* Couleur de fond en dégradé bleu nuit */
+  -fx-padding: 10px;
+  -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+}

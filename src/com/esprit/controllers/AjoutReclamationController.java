@@ -7,7 +7,6 @@ import com.esprit.entities.Reclamation;
 import com.esprit.services.ServiceOffre;
 import com.esprit.services.ServiceReclamation;
 import com.esprit.services.ServiceUser;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,13 +17,14 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-import javax.mail.MessagingException;
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javax.mail.MessagingException;
+import javax.swing.JOptionPane;
 
 public class AjoutReclamationController implements Initializable {
 
@@ -48,19 +48,23 @@ public class AjoutReclamationController implements Initializable {
 
     @FXML
     private Button b1;
-
+    
     private ServiceReclamation sr;
-
+    
     private ServiceUser su;
-
+    
     private ServiceOffre so;
 
+    private int id_user;
+    
+    private int id_offre;
+    
     public AjoutReclamationController() {
         sr = new ServiceReclamation();
         su = new ServiceUser();
         so = new ServiceOffre();
     }
-
+    
     @FXML
     void selectViewOption(MouseEvent event) {
         Reclamation selectedOption = lv1.getSelectionModel().getSelectedItem();
@@ -88,8 +92,8 @@ public class AjoutReclamationController implements Initializable {
             JOptionPane.showMessageDialog(null, "Commentaire ne peut pas être vide !");
             return; // Stop execution if comment is empty
         }
-
-        Reclamation reclamation = new Reclamation(0, message, 1, EtatReclamation.En_cours, 5);
+        
+        Reclamation reclamation = new Reclamation(0, message, id_user, EtatReclamation.En_cours, id_offre);
 
         try {
             sr.ajouter(reclamation);
@@ -98,15 +102,15 @@ public class AjoutReclamationController implements Initializable {
             List<Reclamation> reclamations = sr.afficher();
             JOptionPane.showMessageDialog(null, "Envoie du mail en cours");
             Reclamation rec = reclamations.get(reclamations.size() - 1);
-
+            
             int id = rec.getId_reclamation();
             String mail = su.getUserByID(rec.getId_user()).getMail();
 
-
-            Email.sendMail(mail, "REF " + id, Email.envoiReclamationMessage(su.getUserByID(rec.getId_user()).getNom()));
-        } catch (SQLException | MailException ex) {
+            Email.sendMail(mail, "REF " + id,
+                    Email.envoiReclamationMessage(su.getUserByID(rec.getId_user()).getNom()));
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erreur lors de la validation!");
-        } catch (MessagingException ex) {
+        } catch (MessagingException | MailException ex) {
             JOptionPane.showMessageDialog(null, "Erreur lors de l'envoie du mail!");
         }
 
@@ -143,7 +147,7 @@ public class AjoutReclamationController implements Initializable {
 
     private void fillViewOptions() {
         try {
-            List<Reclamation> reclamations = sr.afficher();
+            List<Reclamation> reclamations = sr.getReclamationEnCours(id_user, id_offre);
 
             for (Reclamation rec : reclamations) {
                 String output = so.chercherOffreByID(rec.getId_offre()).getTitre() + "      " + rec.getEtat();
@@ -158,5 +162,21 @@ public class AjoutReclamationController implements Initializable {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erreur lors de la validation!");
         }
+    }
+
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
+
+    public int getId_offre() {
+        return id_offre;
+    }
+
+    public void setId_offre(int id_offre) {
+        this.id_offre = id_offre;
     }
 }

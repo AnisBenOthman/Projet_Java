@@ -47,7 +47,7 @@ public class ServiceReclamation {
     public List<Reclamation> afficher() throws SQLException {
         List<Reclamation> list = new ArrayList<>();
 
-        String req = "SELECT * FROM reclamation";
+        String req = "SELECT * FROM reclamation where etat = 'En_cours'";
         PreparedStatement pst = cnx.prepareStatement(req);
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
@@ -64,11 +64,13 @@ public class ServiceReclamation {
         return list;
     }
 
-    public List<Reclamation> getReclamationEnCours() throws SQLException {
+    public List<Reclamation> getReclamationEnCours(int id_user, int id_offre) throws SQLException {
         List<Reclamation> list = new ArrayList<>();
 
-        String req = "SELECT * FROM reclamation where etat = 'En_cours'";
+        String req = "SELECT * FROM reclamation where etat = 'En_cours' AND id_user = ? AND id_offre = ?";
         PreparedStatement pst = cnx.prepareStatement(req);
+        pst.setInt(1, id_user);
+        pst.setInt(2, id_offre);
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             int idReclamation = rs.getInt("id_reclamation");

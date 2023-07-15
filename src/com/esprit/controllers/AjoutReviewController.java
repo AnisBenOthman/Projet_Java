@@ -15,11 +15,14 @@ import javafx.scene.shape.SVGPath;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -110,7 +113,7 @@ public class AjoutReviewController implements Initializable {
  }
     @FXML
     private void mesReviews(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/ModifierReviews.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../review/ModifierReviews.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

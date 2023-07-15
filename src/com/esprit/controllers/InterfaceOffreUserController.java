@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 package com.esprit.controllers;
+import com.esprit.entities.Candidat;
 import com.esprit.entities.Offre;
 import com.esprit.services.ServiceDomaine;
 import com.esprit.services.ServiceDomaineO;
@@ -13,6 +14,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +29,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
@@ -63,6 +66,10 @@ public class InterfaceOffreUserController implements Initializable {
 
     @FXML
     private TableColumn<ServiceOffre.OffreView, String> NomDomaineCol;
+    
+    @FXML
+    private TableColumn<ServiceOffre.OffreView,Void> reclamation;
+        
     @FXML
     private Button btnAff;
     @FXML
@@ -80,6 +87,8 @@ public class InterfaceOffreUserController implements Initializable {
     private Button info;
     @FXML
     private Button forum;
+    @FXML
+    private Button quiz;
     private int iduser;
 
     public void setIduser(int iduser) {
@@ -126,6 +135,18 @@ public class InterfaceOffreUserController implements Initializable {
 
         
     }
+    @FXML
+    private void quiz(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/ListeQuiz.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        ListeQuizController controller = loader.getController();
+        controller.setId(iduser);
+        
+        stage.show();
+    }
     
      @FXML
     private void forum(ActionEvent event) throws IOException{
@@ -166,6 +187,7 @@ public class InterfaceOffreUserController implements Initializable {
                         setText(null);
                     } else {
                         FontAwesomeIconView show = new FontAwesomeIconView(FontAwesomeIcon.EYE);
+                        Button reclaButton = new Button("reclamation");
                         
                         show.setStyle(
                                 "-fx-cursor:hand;"
@@ -178,44 +200,67 @@ public class InterfaceOffreUserController implements Initializable {
                         show.setOnMouseClicked((MouseEvent event) ->{
                         ServiceOffre.OffreView offre = getTableView().getItems().get(getIndex());
                             
-                        index = tableOffre.getSelectionModel().getSelectedIndex();
-        if (index <= -1) {
-            JOptionPane.showMessageDialog(null,"il faut selectionner une ligne !");
-        }else{ 
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/OffreDetails.fxml"));
-                Parent root = loader.load();
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-    //
-                OffreDetailsController odc = loader.getController();
-                odc.setLNomEntreprise(NomEntCol.getCellData(index).toString());
-                odc.setLDesc(descCol.getCellData(index).toString());
-                odc.setLTitle(titreCol.getCellData(index).toString());
-                odc.setLNomDomaine(NomDomaineCol.getCellData(index));
-                odc.setLDatePub(datePubCol.getCellData(index).toString());
-                odc.setLDateExp(dateExpCol.getCellData(index).toString());
-                odc.setIdoffre(tableOffre.getItems().get(index).getId_offre());
-                System.out.println(tableOffre.getItems().get(index).getId_offre());
-                odc.setIdu(iduser);
-                odc.setStage(stage);
-                stage.show();   
-            } catch (IOException ex) {
-                Logger.getLogger(InterfaceOffreUserController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           
-        }
+                                            index = tableOffre.getSelectionModel().getSelectedIndex();
+                            if (index <= -1) {
+                                JOptionPane.showMessageDialog(null,"il faut selectionner une ligne !");
+                            }else{ 
+                                try {
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/OffreDetails.fxml"));
+                                    Parent root = loader.load();
+                                    Scene scene = new Scene(root);
+                                    Stage stage = new Stage();
+                                    stage.setScene(scene);
+                        //
+                                    OffreDetailsController odc = loader.getController();
+                                    odc.setLNomEntreprise(NomEntCol.getCellData(index).toString());
+                                    odc.setLDesc(descCol.getCellData(index).toString());
+                                    odc.setLTitle(titreCol.getCellData(index).toString());
+                                    odc.setLNomDomaine(NomDomaineCol.getCellData(index));
+                                    odc.setLDatePub(datePubCol.getCellData(index).toString());
+                                    odc.setLDateExp(dateExpCol.getCellData(index).toString());
+                                    odc.setIdoffre(tableOffre.getItems().get(index).getId_offre());
+                                    System.out.println(tableOffre.getItems().get(index).getId_offre());
+                                    odc.setIdu(iduser);
+                                    odc.setStage(stage);
+                                    stage.show();   
+                                } catch (IOException ex) {
+                                    Logger.getLogger(InterfaceOffreUserController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                            }
                         });
-                        
+                        reclaButton.setOnAction(e->{
+                            ServiceOffre.OffreView offre = getTableView().getItems().get(getIndex());
+                            index = tableOffre.getSelectionModel().getSelectedIndex();
+                            if (index <= -1) {
+                                JOptionPane.showMessageDialog(null,"il faut selectionner une ligne !");
+                            }else{ 
+                                try {
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/AjoutReclamation.fxml"));
+                                    Parent root = loader.load();
+                                    Scene scene = new Scene(root);
+                                    Stage stage = new Stage();
+                                    stage.setScene(scene);
+                        //
+                                    AjoutReclamationController odc = loader.getController();
+                                    odc.setId_offre(offre.getId_offre());
+                                    odc.setId_user(iduser);
+                                    
+                                    stage.show();   
+                                } catch (IOException ex) {
+                                    Logger.getLogger(InterfaceOffreUserController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                            }
+                        });
                         
                         
                         
 
                         
-                        HBox managebtn = new HBox(show);
+                        HBox managebtn = new HBox(show,reclaButton);
                         managebtn.setStyle("-fx-alignement:center");
-                    
+                        
                         setGraphic(managebtn);
                         setText(null);
                     }
@@ -225,9 +270,12 @@ public class InterfaceOffreUserController implements Initializable {
         };
 
         btnCol.setCellFactory(cellFactory);
+        
         tableOffre.setItems(listOffres);
+        
+    
     }
+    
 
-   
     
 }

@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="394.0" prefWidth="604.0" stylesheets="/com/esprit/view/review-style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AjoutReviewController">
+<AnchorPane id="AnchorPane" prefHeight="394.0" prefWidth="604.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AjoutReviewController">
     <children>
         <Button fx:id="b1" disable="true" layoutX="266.0" layoutY="334.0" mnemonicParsing="false" onAction="#ajouterReview" styleClass="fx-beautiful-button" text="Valider" />
         <TextArea fx:id="tf_commentaire" layoutX="40.0" layoutY="161.0" prefHeight="124.0" prefWidth="522.0" styleClass="complaint-textarea" />

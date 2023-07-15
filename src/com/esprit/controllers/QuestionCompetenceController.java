@@ -11,6 +11,8 @@ import com.esprit.services.ServiceQuestion;
 import com.esprit.services.ServiceCompetence;
 import com.esprit.services.ServiceQuestion.QuestionView;
 import com.esprit.controllers.ListeQuizController;
+import com.esprit.entities.MailException;
+import com.esprit.services.ServiceUser;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +36,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 
 /**
@@ -95,6 +99,18 @@ public class QuestionCompetenceController implements Initializable {
     private ToggleGroup Q3;
     @FXML
     private ToggleGroup Q4;
+    private int iduser;
+
+    public int getIduser() {
+        return iduser;
+    }
+
+    public void setIduser(int iduser) {
+        this.iduser = iduser;
+    }
+
+   
+    
 
     
     @Override
@@ -311,9 +327,15 @@ public class QuestionCompetenceController implements Initializable {
     } catch (FileNotFoundException e) {
         e.printStackTrace();
     }
+              ServiceUser su = new ServiceUser();
          String senderEmail = "kacemtaieb@gmail.com";
    String senderPassword = "alqtmoozbqpbasvy";
-String recipientEmail = "kacem.taieb@esprit.tn";
+String recipientEmail = "kacemtaieb@gmail.com";
+            try {
+                recipientEmail = su.getMailbyId(iduser);
+            } catch (MailException ex) {
+                Logger.getLogger(QuestionCompetenceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 sendPDFByEmail("resultat_quiz_"+ lbCompetence.getText()+".pdf",senderEmail,senderPassword,recipientEmail);
     rdQ11.setSelected(false);
     rdQ12.setSelected(false);

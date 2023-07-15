@@ -698,4 +698,20 @@ public class ServiceUser {
         }
         return id;
     }
+    
+    public String getMailbyId(int id) throws MailException {
+        String mail = null; 
+        String req = "SELECT mail FROM user Where id = ?";
+        try {
+            PreparedStatement pst = cnx.prepareStatement(req);
+            pst.setInt(1, id);
+            ResultSet res = pst.executeQuery();
+            while (res.next()) {
+               mail = res.getString("mail");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return mail;
+    }
 }

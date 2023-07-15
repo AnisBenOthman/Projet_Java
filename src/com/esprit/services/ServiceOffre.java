@@ -329,5 +329,4 @@ public class ServiceOffre implements IServices<Offre> {
         return list;
 
     }
-
 }

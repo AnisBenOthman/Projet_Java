@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="/com/esprit/view/reclamation-style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AjoutReclamationController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@stylerec.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AjoutReclamationController">
     <children>
         <Button fx:id="b1" layoutX="260.0" layoutY="476.0" mnemonicParsing="false" onAction="#ajouterReclamation" styleClass="fx-beautiful-button" text="Envoyer" />
         <TextArea fx:id="tf_reclamation" layoutX="44.0" layoutY="264.0" prefHeight="179.0" prefWidth="522.0" />
